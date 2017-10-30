@@ -1,0 +1,11 @@
+
+
+Funcionarios (#codf, nome, [chn], rua, bairro, [nroContrato])
+E-mails (#email, &codf)
+Cardapio (#diaSemana, nroRefeicoes, &codfResp) //obs.: uma chave estrangeira pode ter nome diferente nesse esquema de modelagem conceitual, mas deve estar especificado qual a tabela e chave primária que referencia.
+Alimentos (#coda, nome)
+Fornecedores (#codForn, cpnj, razaoSocial)
+Distribuidoras (#codd, cnpj, razaoSocial
+Preparacao (#&codf, #&diaSemana)
+Menu (#&diaSemana, #&coda, quantdade)
+Fornecimento (#&coda, #&codforn, #data, preco, quantidade, [&codd])

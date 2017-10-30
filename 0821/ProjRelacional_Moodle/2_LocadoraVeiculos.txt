@@ -1,0 +1,15 @@
+Locadora de Veículos
+
+Clientes (#codInterno, nome, endereco, tipo, [CPF], [dt_nasc], [sexo], [CNPJ])
+TiposVeiculos (#codTipo, tempoLimpeza, kmMediaDiaria, [nPassageiros], [nPortas], [tamanho], [carga_max], &codAcessorio)
+Acessorios (&codTipo, acessorios, #codAcessorio) // Aqui foi criado um atributo sintético, autoincremental (codAcessorio).
+Filiais (#codFilial, nome)
+Veiculos (#placa, nrMotor, nrChassi, cor, KmAtual, &codigoTipo, &codFilial)
+Revisoes (#codRevisao, nome, descricao)
+Reserva (#&codInterno, #&codTipo, #dtHoraRetirada, dtHoraEntrega, &codFilialRetirada, &codFilialDevolucao, [&placa], [CNH] [dtVencCNH] [nomeMotorista])
+AgendamentoRevisao (#&placa, #&codRevisao, #dtHora)
+Manutencao (#&codRevisao, #&codTipo)
+
+RIs:
+	1. Se Cliente.tipo == 0 (Pessoa Jurídica): (CPF, dt_nasc, sexo) = null, CNPJ != null.
+	2. Se Cliente.tipo == 1 (Pessoa Física): (CPF, dt_nasc, sexo) != null, CNPJ = null.

@@ -1,0 +1,87 @@
+Elementos
+{
+	Veiculos
+	{
+		Placa - ID
+		Num_Chassis
+		Num_Motor
+		Cor
+		KM_Atual
+		
+		Relações:
+			TiposVeiculos - Tipo
+			Aluguel - CarroAlugado
+			Revisoes - RevisãoPendente
+			Filial - Respondabilidade
+	}
+
+	Filial
+	{
+		Nome
+		CNPJ
+		Endereco
+
+
+	TiposVeiculos
+	{
+		Identificador - ID
+		Descricao_Tipo
+		Tamanho_Veiculo
+		KMMediaPorDiaDoTipo
+		TempoLimpezaeRevisao
+	}
+
+	TipoPasseio : TiposVeiculos
+	{
+		Num_Passageiros
+		Num_Portas
+		Acc_ArCond
+		Acc_CD
+		Acc_DirHidr
+		Acc_CambioAuto
+	}
+
+	TipoCarga : TiposVeiculos
+	{
+		CapacCarga
+	}
+
+	Reservas (Ent. Assoc.)
+	{
+		Id_Reserva - ID
+		Data
+	}
+
+	Aluguel (Ent. Assoc.)
+	{
+		Id_Aluguel - ID
+
+		Relações:
+		{
+			Cliente
+		}
+	}
+
+	Cliente
+	{
+		Codigo_Cliente - Identificador
+		PrimeiroCadastro
+		Telefone
+		Endereco
+	}
+
+	PessoaFisica : Cliente
+	{
+		Nome
+		CPF
+		Sexo
+		DataNascimento
+	}
+
+	PessoaJuridica : Cliente
+	{
+		RazaoSocial
+		NomeFantasia
+		CNPJ
+	}
+}

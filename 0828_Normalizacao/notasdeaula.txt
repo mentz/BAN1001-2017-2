@@ -1,0 +1,45 @@
+Normalização:
+	Processo para obtenção de um esquema relacional livre de redundâncias.
+	Método de projeto ou mesmo de validação do projeto de um BD relacional.
+
+Quando a normalização se faz necessária?
+	Migração de sistemas legados.
+	Documentação do sistema - Obtenção de esquemas.
+	Adaptação de outros modelos para o relacional.
+	Reengenharia ou engenharia reversa.
+
+
+DF Total: Dependência funcional entre campos chave e campos não-chave.
+	Ex.: Tipo e Descricao dependem totalmente de #CodigoProjeto
+
+DF Parcial: Só ocorre quando uma tabela tem mais de uma chave primária.
+	Ocorre quando um ou mais campos não-chave dependem de um dos campos chave.
+	Ex.: (nome, cat, sal) - #codEmp.
+
+DF Transitiva: Dependência entre campos não-chave.
+	Ex.: sal depende de cat.
+
+DF Multivalorada: 
+
+Como se faz? Abordagem bottom-up: Físico -> Lógico -> Conceitual.
+
+
+ÑN: Fonte de dados sem tratamento
+	Projetos (codProj, tipo, desc, (codEmp, nome, cat, sal, dataIni, tempAl))
+
+1FN: Eliminar tabelas aninhadas
+	Projetos (#codProj, tipo, desc)
+	Alocados (#&codProj, #codEmp, nome, cat, sal, dataIni, tempAl)
+
+2FN: Eliminar DF parciais
+	Projetos (#codProj, tipo, desc)
+	Alocados (#&codProj, #&codEmp, dataIni, tempAl)
+	Empregados (#codEmp, nome, cat, sal)
+
+3FN: Eliminar DF transitiva
+	Projetos (#codProj, tipo, desc)
+	Alocados (#&codProj, #&codEmp, dataIni, tempAl)
+	Categorias (#cat, sal)
+	Empregados (#codEmp, nome, &cat)
+
+4FN: 

@@ -1,0 +1,14 @@
+Reservas aéreas
+
+Reservas (#codigo, nomePass, prazoValidade, emitido)
+Trechos (#idTrecho, &siglaOrigem, horaPartida, &siglaDestino, horaChegada)
+Voos (#codVoo, ciaAerea, diaSemana)
+Aeroportos (#sigla, nome, capacidade, &codCid)
+Cidades (#codCid, estado, pais, clima, nome)
+Aeronaves (#codAeronaves, modelo, autorizacao, capacidade, ano)
+Assentos (#idAssento, classe, &codAeronave)
+Itinerario (#&idTrecho, #&codVoo, &codAeronave)
+Escalas (#&codigoReserva, #&idTrecho, [&idAssento])
+
+RIs:
+	Reservas.diaSemana: é um bitset de 7 bits (domingo, segunda, terça, quarta, quinta, sexta, sábado).

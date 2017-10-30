@@ -1,0 +1,12 @@
+Projeto de sistema de vendas e compras de uma empresa
+
+Clientes (#codCliente, nome, [CPF], [CNPJ], [razaoSocial], tipo)
+Produtos (#codProduto, nome, qtdDisponivel, peso, altura, largura, profundidade, unMedida, precoUnVenda, precoUniCompra)
+Empresas (#CNPJ, razaoSocial)
+Venda (#&codCliente, #&codProduto, #dtHoraEmissao, qtd)
+Compra (#&codProduto, #&CNPJFornecedor, #dtHoraEmissao, qtd, &CNPJEntrega, dtPrevEntrega)
+
+
+RIs:
+	1. Se Cliente.tipo = 0 (Pessoa Jurídica): CNPJ != null, razaoSocial != null, CPF = null.
+	2. Se Cliente.tipo = 1 (Pessoa Física): CPF != null, CNPJ = razaoSocial = null.

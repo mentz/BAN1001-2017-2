@@ -1,0 +1,38 @@
+Entidades
+{
+	DVDs
+	{
+		Código - ID
+		Filme - Relação
+	}
+
+	Filmes
+	{
+		Código_Filme - ID
+		Título
+		Gêneros - Relação
+		Ator - Relação
+	}
+
+	Gêneros
+	{
+		Código_Gênero
+		Nome
+	}
+
+	Atores
+	{
+		Nome_Completo
+		Data_Nascimento
+	}
+
+	Clientes
+	{
+		Código_Cliente
+		Pré_Nome
+		Sobrenome
+		Telefone
+		Endereço
+		DVDs_Alugados - Relação
+	}
+}

@@ -1,0 +1,12 @@
+Sistema Universitário
+
+Professor (#codProf, nome, CPF, RG, dtNasc, fone1, [fone2], salario, CNT)
+Alunos (#matricula, nome, CPF, RG, dtNasc, fone1, [fone2])
+Cursos (#codCurso, nome, turno, nroPeriodos, &codProfCoordenador)
+Disciplinas (#codDisp, ementa, nome, cargaHoraria
+Turmas (#codTurma, turno, &codProf, &codDisp, semestre, horario)
+Livros (#codLivro, titulo, ISBN, editora, edicao)
+Autores (#codAutor, #&codLivro, nomeAutor)
+Matriculados (#&matricula, #&codTurma)
+Grade (#&codCurso, #&codDisp, semestre)
+Bibliografia (#&codDisp, #&codLivro, tipo)

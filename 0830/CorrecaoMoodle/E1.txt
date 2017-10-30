@@ -1,0 +1,31 @@
+NN:
+Evento (#codEvento, nomeEvento, (#ID-artigo, titulo, ano, ID-revisor, nomeRevisor, grauEscolaridadeRevisor, nivelRevisor (#ID-autor, nomeAutor)))
+
+1FN: Tabelas aninhadas
+Evento (#codEvento, nomeEvento)
+Anais (#&codEvento, #ID-artigo, titulo, ano, ID-revisor, nomeRevisor, grauEscolaridadeRevisor, nivelRevisor)
+Autoria (#&codEvento, #&ID-artigo, #ID-autor, nomeAutor)
+
+2FN: DF Parcial (entre um dos campos chave e alguns campos não-chave)
+Evento (#codEvento, nomeEvento)
+Artigos (#ID-artigo, titulo, nome)
+Anais (#&codEvento, #&ID-artigo, ID-revisor, nomeRevisor, grauEscolaridadeRevisor, nivelRevisor)
+Autores (#ID-autor, nomeAutor)
+Autoria (#&codEvento, #&ID-artigo, #&ID-autor)
+
+3FN: DF Transitiva (entre campos não-chaves)
+Eventos (#codEvento, nomeEvento)
+Artigos (#ID-artigo, titulo, nome)
+Anais (#&codEvento, #&ID-artigo, &ID-revisor)
+Autores (#ID-autor, nomeAutor)
+Autoria (#&codEvento, #&ID-artigo, #&ID-autor)
+Revisores (#ID-revisor, nomeRevisor, grauEscolaridadeRevisor, nivelRevisor)
+
+4FN: DF Multivalorada (entre campos chave em tabelas com mais de um campo chave)
+Eventos (#codEvento, nomeEvento)
+Artigos (#ID-artigo, titulo, nome)
+Anais (#&codEvento, #&ID-artigo, &ID-revisor)
+Autores (#ID-autor, nomeAutor)
+Autoria (#&ID-artigo, #&ID-autor)
+Revisores (#ID-revisor, nomeRevisor, grauEscolaridadeRevisor, nivelRevisor)
+

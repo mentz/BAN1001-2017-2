@@ -1,0 +1,67 @@
+Exercício feito em dupla com Leonardo Valério Anastácio.
+
+Slide 15:
+1. Buscar o número dos ambulatórios com capacidade superior à capacidade do ambulatório de número 100:
+-- R1 guarda os dados do ambulatório de número 100.
+R1 = rho Amb100 (sigma Ambulatorios.nroa=100 (Ambulatorios))
+-- Retor
+pi Ambulatorios.nroa (sigma Ambulatorios.capacidade>Amb100.capacidade (Ambulatorios cross join R1))
+
+2. Buscar o nome e CPF dos funcionários que recebem salários iguais ou inferiores ao funcionário com CPF 1001:
+-- R1 guarda os dados do funcionário com cpf = 1001.
+R1 = rho FuncCPF1001 (sigma Funcionarios.cpf=1001 (Funcionarios))
+-- Retorna os nomes e CPF dos funcionários com salario <= ao do funcionário de cpf = 1001.
+pi Funcionarios.nome,Funcionarios.cpf (sigma Funcionarios.salario<=FuncCPF1001.salario (Funcionarios cross join R1))
+
+3. Buscar pares de nomes de médicos diferentes que têm consultas marcadas nas mesmas datas:
+-- R1 e R2 guardam os nomes dos médicos e os dias das suas consultas.
+R1 = sigma Meds1.codm=Cons1.codm (rho Meds1 (Medicos) cross join rho Cons1 (Consultas))
+R2 = sigma Meds2.codm=Cons2.codm (rho Meds2 (Medicos) cross join rho Cons2 (Consultas))
+-- Retorna os pares de nomes de médicos distintos com consultas nas mesmas datas.
+pi Meds1.nome,Meds2.nome (sigma Meds1.codm!=Meds2.codm and Cons1.data=Cons2.data (R1 cross join R2))
+
+
+Slide 21:
+1. Buscar o nome e cpf dos médicos e dos pacientes cadastrados no hospital:
+rho Pessoas ((pi nome,cpf (Medicos)) union (pi nome,cpf (Pacientes)))
+
+2. Buscar o nome, cpf e idade dos médicos, pacientes e funcionários que residem em Florianópolis:
+-- R1, R2 e R3 fazem a seleção vertical e horizontal de cada tipo de pessoa.
+R1 = pi nome,cpf,idade (sigma cidade='Florianopolis' (Medicos))
+R2 = pi nome,cpf,idade (sigma cidade='Florianopolis' (Funcionarios))
+R3 = pi nome,cpf,idade (sigma cidade='Florianopolis' (Pacientes))
+-- Retorna os dados esperados. Renomeamos a relação resultante para melhor identificar o grupo.
+rho Pessoas (R1 union R2 union R3)
+
+3. Buscar o nome e cpf dos funcionários que recebem salários abaixo de R$ 500,00 e não estão internados como pacientes:
+-- R1 seleciona as colunas nome e cpf dos funcionários com salário abaixo de 500.
+R1 = pi nome,cpf (sigma salario<500 (Funcionarios))
+-- R2 seleciona as colunas nome e cpf de todos os pacientes.
+R2 = pi nome,cpf (Pacientes)
+-- Retorna a diferença destes. Veja que será eliminado somente uma coincidência de ambos nome e cpf, pois nunca haverá uma pessoa com dois nomes ou dois cpf. Renomeamos a relação resultante para melhor identificar o grupo.
+rho Pessoas (R1 - R2)
+
+4. Buscar o número dos ambulatórios onde nenhum médico dá atendimento:
+-- R1 seleciona a coluna nroa de todos os médicos.
+R1 = pi nroa (Medicos)
+-- R2 seleciona a coluna nroa de todos os ambulatórios.
+R2 = pi nroa (Ambulatorios)
+-- Retorna as linhas que estão em R2 e não existem em R1, efetivamente retornando o número dos ambulatórios que nenhum médico atende.
+R2 - R1
+
+5. Buscar o nome e cpf dos funcionários de Florianópolis que estão internados como pacientes:
+-- R1 seleciona as colunas nome e cpf dos funcionarios moradores de Florianópolis.
+R1 = pi nome,cpf (sigma cidade='Florianopolis' (Funcionarios))
+-- R2 Seleciona as colunas nome e cpf dos pacientes moradores de Florianópolis.
+R2 = pi nome,cpf (sigma cidade='Florianopolis' (Pacientes))
+-- Retorna a interseção destes. Veja que será considerado somente quando ambos nome e cpf coincidirem, pois nunca haverá uma pessoa com dois nomes ou dois cpf.
+R1 intersect R2
+
+6. Buscar o nome e cpf dos médicos pediatras que não atendem nos ambulatórios 101 e 102, e estão internados como pacientes sofrendo de gastrite:
+-- R1 seleciona os atributos nome e cpf dos médicos pediatras que não atendem nos ambulatórios 101 e 102.
+R1 = pi nome,cpf (sigma especialidade='pediatria' and nroa!=101 and nroa!=102 (Medicos))
+-- R2 seleciona os atributos nome e cpf dos pacientes com gastrite.
+R2 = pi nome,cpf (sigma doenca='gastrite' (Pacientes))
+/* Retorna a interseção dos dois grupos selecionados. Veja que será considerado uma pessoa somente quando ambos nome e cpf coincidirem, pois nunca haverá uma pessoa com dois nomes ou dois cpf.
+Faço a renomeação da relação resultante para melhor apresentar o resultado. Não é obrigatório.*/
+rho Pessoas (R1 intersect R2)

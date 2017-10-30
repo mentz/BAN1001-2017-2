@@ -1,0 +1,41 @@
+1.
+SELECT m.nome, m.CPF FROM Medicos m JOIN Pacientes p ON m.CPF = p.CPF;
+
+2.
+SELECT codf, f.nome, codm, m.nome FROM Funcionarios f, Medicos m WHERE f.cidade=m.cidade;
+
+6.
+SELECT m.nome,m.idade FROM Medicos m NATURAL JOIN Consultas c JOIN Pacientes p ON c.codp=p.codp AND p.nome='Ana';
+
+8.
+SELECT p.nome,p.CPF,p.idade FROM Pacientes p JOIN Consultas c ON p.codp=c.codp JOIN Medicos m on c.codm=m.codm WHERE m.especialidade='Ortopedia' and date_part('DAY', c.data)<16;
+
+9.
+SELECT f2.nome,f2.salario FROM Funcionarios f1 JOIN Funcionarios f2 ON f2.cidade=f1.cidade and f2.salario>f1.salario and f1.nome='Carlos';
+ou
+SELECT f2.nome,f2.salario FROM Funcionarios f1 JOIN Funcionarios f2 ON f2.cidade=f1.cidade and f2.salario>f1.salario WHERE f1.nome='Carlos';
+
+ou (com subconsulta)
+
+SELECT f2.nome,f2.salario FROM Funcionarios f2 WHERE cidade IN (SELECT cidade FROM Funcionarios WHERE f2.salario>f1.salario AND nome='Carlos');
+
+
+
+
+
+Outro slide:
+
+IN:
+2.
+SELECT codp.nome FROM Pacientes WHERE codp IN (SELECT codp FROM Consultas WHERE hora>'14:00:00');
+
+3.
+SELECT nome,idade FROM Medicos WHERE codm IN (SELECT codm FROM Consultas WHERE codp IN (SELECT codp FROM Pacientes WHERE nome='Ana'));
+
+4.
+SELECT nroa,andar FROM Ambulatorios WHERE nroa NOT IN (SELECT nroa FROM Medicos WHERE nroa IS NOT NULL);
+
+5.
+SELECT nome,CPF,idade FROM Pacientes WHERE codp NOT IN (SELECT codp FROM Consultas WHERE date_part('DAY', data)>=16);
+
+

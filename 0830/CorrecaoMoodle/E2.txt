@@ -1,0 +1,21 @@
+NN:
+Clientes (#ID-cli, nome, telefone, (#ID-DVD, nome, genero, duracao, categoria, preco, dataRetirada))
+
+1FN: Tabelas aninhadas
+Clientes (#ID-cli, nome, telefone)
+Reservas (#&ID-cli, #ID-DVD, nome, genero, duracao, categoria, preco, #dataRetirada)
+
+2FN: DF Parcial (entre uma das chaves e não-chaves)
+Clientes (#ID-cli, nome, telefone)
+Reservas (#&ID-cli, #&ID-DVD, #dataRetirada)
+DVDs (#ID-DVD, nome, genero, duracao, categoria, preco)
+
+3FN: DF Transitiva (entre não-chaves)
+Clientes (#ID-cli, nome, telefone)
+Reservas (#&ID-cli, #&ID-DVD, #dataRetirada)
+DVDs (#ID-DVD, nome, genero, duracao, &ID-cat)
+Categorias (#ID-cat, categoria, preco)
+
+4FN: DF Multivalorada
+Igual 3FN.
+

@@ -1,0 +1,19 @@
+NN:
+Roteiros (#codigo, nome, duracao, (dataSaida, vagas, preco), (numOrdem, nomeCidade, estado, populacao, tempoEstadia))
+
+1FN: Tabelas aninhadas
+Roteiros (#codRoteiro, nome, duracao)
+Pacotes (#&codRoteiro, #idPacote, dtSaida, vagas, preco)
+Trechos (#&codRoteiro, #numOrdem, nomeCidade, estado, populacao, tempoEstadia)
+
+2FN: DF Parcial (entre um dos campos chave e campos não-chaves)
+Igual 1FN.
+
+3FN: DF Transitiva
+Roteiros (#codRoteiro, nome, duracao)
+Pacotes (#&codRoteiro, #idPacote, dtSaida, vagas, preco)
+Trechos (#&codRoteiro, #numOrdem, &codCidade, tempoEstadia)
+Cidades (#codCidade, nome, estado, populacao)
+
+4FN: DF Multivalorada
+Igual 3FN.

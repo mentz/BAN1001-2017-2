@@ -1,0 +1,19 @@
+Seleção (sigma):
+1) sigma doenca='sarampo' (Pacientes)
+2) sigma especialidade='ortopedia' and idade=55 (Medicos)
+3)
+4)
+
+Projeção (pi):
+1)
+2)
+3)
+4)
+
+Produto cartesiano (cross join):
+1) pi nome,data (sigma Consultas.codm=Medicos.codm ((Medicos) cross join (Consultas)))
+2) pi Ambulatorios.nroa,capacidade,nome (sigma andar=50 and especialidade='ortopedia' ((Ambulatorios) cross join (Medicos)))
+3) 
+4) pi Funcionarios.nome,Funcionarios.salario (sigma Pacientes.codp=Consultas.codp and Consultas.codm=Medicos.codm and Medicos.especialidade='psiquiatria' and Funcionarios.cpf=Pacientes.cpf and (Pacientes.cidade='Florianopolis' or Pacientes.cidade='Palhoca') ((((Funcionarios) cross join (Pacientes)) cross join (Medicos)) cross join (Consultas)))
+
+Atribuição (

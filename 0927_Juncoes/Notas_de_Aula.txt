@@ -1,0 +1,12 @@
+Otimização:
+Como funciona o SGBD:
+	Usuário faz uma query SQL -> SGBD recebe a query SQL e traduz para Álgebra Relacional (árvore) e entrega a árvore para o otimizador de consulta.
+Atividades do otimizados de consulta:
+	1 - Otimizar a árvore: reduzir o número de consultas e/ou o número de variáveis necessárias para a consulta.
+	2 - Definir os algoritmos de processamento das operações.
+
+	Definindo passo 1:
+		Resumidamente:
+			- Antecipar seleções (sigma)
+			- Definir projeções (pi) - Desde que não prejudiquem seleções posteriores.
+			- Identificar sub-expressões comuns e executá-las de uma única vez, mantendo o resultado em uma variável de relação.

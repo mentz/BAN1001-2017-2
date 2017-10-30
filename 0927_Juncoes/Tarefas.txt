@@ -1,0 +1,15 @@
+-- Slide 26
+-- 1:
+pi nroa,andar (Ambulatorios - pi Ambulatorios.nroa,capacidade,andar (Ambulatorios cross join Medicos))
+pi nroa,andar (sigma nome=null (Ambulatorios left outer join Medicos))
+
+-- 4:
+pi A2.nroa ((rho A1 (Ambulatorios)) cross join A1.andar=A2.andar and A2.capacidade>A1.capacidade and A1.nroa=101 (rho A2 (Ambulatorios)))
+
+
+-- Slide 29
+-- 2:
+pi Ambulatorios.nroa,codm,nome (Ambulatorios left outer join Medicos)
+
+-- 3:
+pi Pacientes.cpf,Pacientes.nome,Medicos.cpf,Medicos.nome ((Pacientes full outer join Consultas.codp=Pacientes.codp Medicos) full outer join Consultas.codm=Medicos.codm (Medicos))
