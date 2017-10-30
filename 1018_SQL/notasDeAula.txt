@@ -1,0 +1,56 @@
+Atividades do slide 34:
+1)  select nome,cpf from medicos where idade<40 or especialidade!='traumatologia';
+2)  select * from consultas where hora>'12:00:00' and data>'2006-06-19';
+3)  select nome,idade from pacientes where cidade!='Florianopolis';
+4)  select hora from consultas where data<'2006-06-14' or data>'2006-09-20';
+5)  select nome,idade*12 from pacientes;
+6)  select distinct cidade from funcionarios;
+7)  select min(salario) as minimo, max(salario) as maximo from funcionarios where cidade='Florianopolis';
+10) select max(hora) from consultas where data='2006-06-13';
+11) select avg(idade), max(distinct nroa) as ambulatoriosatendidos from medicos;
+12) select codf,nome,salario*0.8 as 'salario liquido' from funcionarios;
+13) select nome from funcionarios where nome like '%a';
+14) /* Erro: Não sei converter de integer pra varchar[11] para fazer o like */
+15) select nome,especialidade from medicos where nome like '_o%o';
+16) select codp,nome from pacientes where idade>25 and doenca in ('tendinite', 'fratura', 'gripe', 'sarampo');
+
+
+Atividades extras:
+Buscar o CPF e nome de médicos que também são pacientes:
+
+select cpf,nome from medicos 
+intersect 
+select cpf,nome from pacientes;
+
+Buscas o CPF e nome dos funcionários que têm o maior salário da clínica:
+
+select cpf,nome from funcionarios 
+  where salario=(select max(salario) from funcionarios);
+  
+OU
+
+select cpf,nome from funcionarios 
+	except 
+	select f1.cpf,f1.nome from funcionarios f1, funcionarios f2
+	where f1.salario<f2.salario;
+  
+APRENDIZADO:
+
+Buscar o nome e andar do ambulatórios para os médicos que atendem algum ambulatório.
+Junção: SELECT nome,andar FROM medicos m, ambulatorios a WHERE m.nroa=a.nroa;
+Theta-Junção: SELECT nome,andar FROM medicos m [INNER] JOIN ambulatorios a ON m.nroa=a.nroa;
+Junção Natural: SELECT nome,andar FROM medicos NATURAL JOIN ambulatorios
+
+Buscar o nome de todos os médicos e se eles atendem um ambulatório então mostrar o andar:
+Junção Externa à Esquerda: SELECT nome,andar FROM medicos m LEFT [OUTER] JOIN ambulatorios a ON m.nroa=a.nroa;
+Junção Externa à Direita: SELECT nome,andar FROM ambulatorios a RIGHT [OUTER] JOIN medicos m ON a.nroa=m.nroa;
+
+Buscar todos os médicos e o andar de todos os ambulatórios e relacioná-los quando houver associação:
+Junção Externa: SELECT nome,andar FROM medicos m FULL [OUTER] JOIN ambulatorios a ON m.nroa=a.nroa;
+
+
+Atividades do slide 43:
+1)	select nome,cpf from medicos m join pacientes p where m.cpf = p.cpf;
+	select nome,cpf from medicos natural join pacientes;
+2)	select codf,f.nome,codm,m.nome from funcionarios f, medicos m where f.cidade=m.cidade;
+	select codf,f.nome,codm,m.nome from funcionarios f join medicos m on f.cidade=m.cidade;
