@@ -1,0 +1,47 @@
+Atividades SQL:
+
+slide #??:
+
+4:
+select nome,cpf from pacientes where codp=any
+	(select codp from consultas where hora<all
+		(select hora from consultas where data='2006-11-12'));
+
+5:
+select nome,cpf from medicos where nroa!=all
+	(select nroa from ambulatorios where capacidade>all
+		(select capacidade from ambulatorios where andar=2));
+
+2:
+select nome,idade from medicos where codm=any
+	(select codm from consultas where codp=any
+		(select codp from pacientes where nome='Ana'));
+
+
+
+Exists:
+1:
+select cpf from medicos m where
+	exists (select * from pacientes p where p.cpf=m.cpf);
+
+select data from consultas c where
+	exists (select codp from pacientes p where cidade='Jlle'
+			where p.codp=c.codp);
+
+2:
+select nome,idade from medicos m where
+	exists (select * from consultas c where
+		m.codm=c.codm and
+		exists (select * from pacientes p where
+			c.codp=p.codp and
+			p.nome='Ana'));
+
+3:
+select nroa from ambulatorios a where
+	not exists (select * from ambulatorio aa where aa.capacidade>a.capacidade);
+
+5:
+select nome,cpf from medicos m where especialidade = 'ortopedia' and
+	not exists (select * from pacientes p where cidade = 'Florianopolis' and
+	not exists (select * from consultas c where c.codp=p.codp and c.codm=m.codm));
+
