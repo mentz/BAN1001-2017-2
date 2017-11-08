@@ -1,0 +1,40 @@
+Correção da tarefa:
+
+1: Ambígua, tem duas soluções.
+select f.id,f.nome from funcionarios f join clientes c on f.cpf=c.cpf join reservas r on r.cliente=c.id
+where f.turno='N' and r.dataRes='2006-10-01';
+
+ou
+
+select f.id,f.nome from funcionarios f, clientes c, reservas r
+where f.cpf=c.cpf and r.cliente=c.id and f.turno='N' and dataRes='2006-10-01';
+
+Tempo de planejamento: o primeiro é mais rápido porque o segundo interpreta e descobre que é equivalente ao primeiro;
+Tempo de resposta: igual.
+Cai na prova ~^-^~
+
+ou
+
+select id,nome from funcionarios where turno='N' and
+cpf=any (select cpf from clientes where id=any (select cliente from reservas where dataRes='2006-10-01'));
+
+muito melhor ^ mas não cai na prova :(
+
+
+2: 
+SELECT c.nome,c.endereco,d.nome FROM Clientes c JOIN Clientes d ON c.id=d.responsavel WHERE c.cidade='Florianópolis';
+
+usar LEFT JOIN também está correto POIS A QUESTÃO É AMBÍGUA.
+ISSO É UM PROBLEMA RECORRENTE NA MATÉRIA.
+
+3:
+SELECT c.nome,c.endereco (terminar - LEMBRA DE FILTRAR O DVD PLS);
+
+4:
+SELECT nome, endereco, cidade FROM funcionarios where turno='M' or turno='T'
+UNION
+SELECT nome, endereco, cidade FROM clientes
+WHERE id in(Select cliente from reservas);
+
+5:
+SELECT id,nome,fone from clientes c where exists (select * from locacoes l where c.id=l.cliente and exists (select * from copias p where p.id=l.id and p.filme=l.filme and midia='DVD'))) and exists (select * from locacoes l where c.id=l.cliente and exists (select * from copias p where p.id=l.id and p.filme=l.filme and midia='VHS')));
