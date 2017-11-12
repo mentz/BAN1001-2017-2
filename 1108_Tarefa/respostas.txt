@@ -1,0 +1,29 @@
+----
+Questao 1:
+SELECT f.id,f.nome FROM funcionarios f, clientes c, reservas r WHERE f.turno='N' AND f.cpf=c.cpf AND r.cliente=c.id AND r.datar=date('2006-10-1');
+
+----
+Questao 2:
+SELECT p.nome,p.endereco,d.nome AS dependente FROM clientes p LEFT OUTER JOIN clientes d ON d.responsavel=p.id WHERE p.cidade='Florianópolis';
+
+----
+Questao 3:
+SELECT c.nome,c.endereco FROM clientes c JOIN locacoes l ON c.id=l.cliente WHERE l.datapd<l.datad;
+
+----
+Questao 4:
+SELECT nome,cidade,endereco FROM funcionarios WHERE turno!='N') union (SELECT nome,cidade,endereco FROM clientes);
+
+----
+Questao 5:
+SELECT id,nome,fone FROM clientes c WHERE EXISTS (SELECT * FROM locacoes l WHERE c.id=l.cliente AND EXISTS (SELECT * FROM copias p WHERE l.id=p.id AND l.filme=p.filme AND p.midia='VHS')) AND EXISTS (SELECT * FROM locacoes l WHERE c.id=l.cliente AND EXISTS (SELECT * FROM copias p WHERE l.id=p.id AND l.filme=p.filme AND p.midia='DVD'));
+
+----
+Questao 6:
+SELECT c1.id,c1.filme,c2.id,c2.filme FROM copias c1 JOIN copias c2 on c1.filme=c2.filme AND c1.id<c2.id;
+
+----
+Questao 7:
+SELECT id,nome,fone FROM clientes c WHERE EXISTS (SELECT * FROM locacoes l WHERE c.id=l.cliente AND EXISTS (SELECT * FROM filmes f WHERE l.filme=f.id AND EXISTS (SELECT * FROM estilos e WHERE e.nome IN ('ação', 'suspense') AND f.estilo=e.id))) AND NOT EXISTS (SELECT * FROM locacoes l WHERE c.id=l.cliente AND EXISTS (SELECT * FROM filmes f WHERE l.filme=f.id AND EXISTS (SELECT * FROM estilos e WHERE e.nome NOT IN ('ação', 'suspense') AND f.estilo=e.id)));
+
+----

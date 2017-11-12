@@ -1,0 +1,170 @@
+Slide 15:
+
+1.
+UPDATE pacientes
+   SET cidade = 'Ilhota'
+ WHERE nome = 'Paulo';
+
+2.
+UPDATE consultas
+   SET hora = '12:00:00', data = '2006-07-04'
+ WHERE codm = 1 
+   AND codp = 4;
+
+3.
+UPDATE pacientes
+   SET idade = idade + 1, doenca = 'câncer'
+ WHERE nome = 'Ana';
+
+4.
+UPDATE consultas
+   SET hora = hora + '01:30:00'
+ WHERE codm = 3 
+   AND codp = 4;
+
+5.
+DELETE 
+  FROM funcionarios
+ WHERE nome = 'Carlos';
+
+6.
+DELETE 
+  FROM consultas
+ WHERE hora >= '19:00:00';
+
+7.
+DELETE FROM consultas
+ WHERE codp IN
+ 	   (SELECT codp 
+  	      FROM pacientes WHERE idade<10 
+		    ON doenca='câncer');
+
+DELETE FROM pacientes
+ WHERE doenca='câncer' 
+    ON idade<10;
+
+8.
+DELETE FROM consultas
+ WHERE codm IN (SELECT codm 
+  FROM medicos  WHERE cidade IN ('Biguacu', 'Palhoca'));
+
+DELETE 
+  FROM medicos
+ WHERE cidade IN ('Biguacu', 'Palhoca');
+
+
+Slide 34:
+
+1.
+SELECT nome, cpf 
+  FROM medicos
+ WHERE idade < 40 
+    ON especialidade != 'traumatologia';
+
+2.
+SELECT * 
+  FROM consultas
+ WHERE data>'2006-06-19' 
+   AND hora>'12:00:00';
+
+3.
+SELECT nome, idade
+  FROM pacientes
+ WHERE cidade != 'Florianopolis';
+
+4.
+SELECT hora
+  FROM consultas
+ WHERE data NOT BETWEEN '2006-06-14' AND '2006-06-20';
+
+5.
+SELECT nome, (idade * 12) AS meses
+  FROM pacientes;
+
+6.
+SELECT DISTINCT cidade
+  FROM funcionarios;
+
+7.
+SELECT MIN(salario) AS minimo,
+       MAX(salario) AS maximo
+  FROM funcionarios
+ WHERE cidade = 'Florianopolis';
+
+10.
+SELECT MAX(hora) AS ultima
+  FROM consultas
+ WHERE data = '2006-06-13';
+
+11.
+SELECT AVERAGE(idade) AS idade_media,
+       COUNT (DISTINCT (nroa)) AS ambulatorios_atendidos
+  FROM medicos;
+
+12.
+SELECT codf,
+       nome,
+	   (salario * 0.8) as salario_liquido
+  FROM funcionarios;
+
+13.
+SELECT nome
+  FROM funcionarios
+ WHERE nome LIKE '%a';
+
+14.
+Não sei tornar em string o CPF.
+
+15.
+SELECT nome,
+       especialidade
+  FROM medicos
+ WHERE nome LIKE '_o%o';
+
+16.
+SELECT codp,
+       nome
+  FROM pacientes
+ WHERE idade > 25
+   AND doenca IN ('tendinite', 'fratura', 'gripe', 'sarampo');
+
+
+Slide 43:
+
+1.
+SELECT m.nome,
+       m.cpf
+  FROM medicos m,
+       pacientes p
+ WHERE m.cpf = p.cpf;
+
+SELECT m.nome,
+ 	   m.cpf
+  FROM medicos AS m
+  	   JOIN pacientes AS p
+	     ON m.cpf = p.cpf;
+
+SELECT m.nome,
+	   m.cpf
+  FROM medicos AS m
+  	   NATURAL JOIN pacientes AS p;
+
+2.
+SELECT DISTINCT f.codf,
+	   f.nome,
+	   m.codm,
+	   m.nome
+  FROM funcionarios f,
+       medicos m
+ WHERE f.cidade = m.cidade;
+
+SELECT DISTINCT f.codf,
+       f.nome,
+	   m.codm,
+	   m.nome
+  FROM funcionarios AS f
+       JOIN medicos AS m
+	     ON f.cidade = m.cidade;
+
+
+-- Cara eu estou achando que isso já basta.
